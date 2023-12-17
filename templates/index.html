@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link href="{{url_for('static',filename='styles/styles.css')}}" rel="stylesheet" />
+<html>
+    <head>
+        <title>
+            SudokuSolver
+        </title>
+    </head>
+    <body>
+        <h1>
+            Sudoku Solver
+        </h1>
+        <img 
+            class="board"
+            src="{{url_for('static', filename='images/board.jpg')}}"
+        />
+        <button
+            type="submit"
+            class="button"
+        >
+            Generate Board
+        </button>
+
+        <button
+            type="submit"
+            class="button"
+        >
+            Solve
+        </button>
+    </body>
+</html>
