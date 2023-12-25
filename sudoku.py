@@ -1,12 +1,14 @@
 import random
 
 class Board:
+    #Initializing the board
     def __init__(self):
         self.Board = [[0 for _ in range(9)] for __ in range(9)]
         self.Difficulty = 1
         self.genBoard()
         self.pokeHole()
 
+    #Prints a nice version of the board
     def __str__(self):
         ret = ""
 
@@ -20,8 +22,13 @@ class Board:
             ret += "-"*37 + "\n"
         return ret
     
+
+    #Getters and setters
     def setDifficulty(self, newDiff):
         self.Difficulty = newDiff  
+
+    def getDifficulty(self):
+        return self.Difficulty
 
     def setBoard(self, newBoard):
         self.Board = newBoard   
@@ -29,6 +36,7 @@ class Board:
     def getBoard(self):
         return self.Board
     
+    #Returns a list of each 3x3 square
     def getAllSquares(self):
         ret = [[],[],[],[],[],[],[],[],[]]
         for row in range(9):
@@ -40,9 +48,11 @@ class Board:
 
         return ret
     
+    #Returns a cell's value given its location
     def getCell(self, row, col):
         return self.Board[row][col]
 
+    #Backtracking algo used in both generating and solving
     def genBoard(self):
         nums = [1,2,3,4,5,6,7,8,9]
         random.shuffle(nums)
@@ -59,6 +69,7 @@ class Board:
                     return False
         return True 
 
+    #Removes cells to create a puzzle
     def pokeHole (self):
         toPoke = 0
         match self.Difficulty:
@@ -74,16 +85,19 @@ class Board:
             col = random.randint(0,8)
             self.Board[row][col] = 0    
 
+    #Zeros out the board and regenerates it
     def refreshBoard(self):
         self.Board = [[0 for _ in range(9)] for __ in range(9)]
         self.genBoard()
         self.pokeHole()
 
+    #Checks for row, col and the 3x3 square 
     def checkAll(self, row, col, num):
         if(self.validSquare(row, col, num) and self.validRow(row, num) and self.validCol(col, num)):
             return True
         return False
-    
+
+    #Checks the 3x3 square
     def validSquare(self, row, col, num):
         tempR = row//3 *3
         tempR2 = tempR + 3
@@ -96,12 +110,14 @@ class Board:
                     return False
         return True
     
+    #Checks the row
     def validRow(self, row, num):
         for i in range(9):
             if self.Board[row][i] == num:
                 return False
         return True
 
+    #Checks the column
     def validCol(self, col, num):
         for i in range(9):
             if self.Board[i][col] == num:
